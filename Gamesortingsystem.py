@@ -1,5 +1,6 @@
 from tkinter import *
 from functools import partial
+import csv
 
 #Opens a new window to add games
 
@@ -8,9 +9,14 @@ def AddScreen():
    addscreen = Tk()
    addscreen.configure(width=250, height=250)
    AddEntry = Entry(addscreen).place(x=75, y=75)
-   AddButton = Button(addscreen,text = "Add", command = printInput).place(x = 75, y = 85)
-   return
+   AddButton = Button(addscreen, text = "Add", command = AddScreen).place(x = 95, y = 95)
 
+   with open('game_file.csv', mode='a') as game_file:
+
+      game_writer = csv.writer(game_file, delimiter=',')
+
+      game_writer.writerow([AddEntry.get()])
+   
 #Opens a new window to remove games
 
 def RemoveScreen():
@@ -22,11 +28,6 @@ def RemoveScreen():
 def SearchScreen():
    searchscreen = Tk()
    searchscreen.configure(width=750, height=500, bg='LavenderBlush')
-
-
-def printInput():
-    inp = AddEntry.get(1.0, "end-1c")
-    label.configure(tkwindow1, text = "Provided Input: "+inp).place(x = 100, y = 100)
 
 #Once Log-in button is pressed it will open the UI for the games
 
